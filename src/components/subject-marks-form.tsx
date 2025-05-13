@@ -143,6 +143,7 @@ export function SubjectMarksForm({ branch }: SubjectMarksFormProps) {
     const finalResult =
       totalCredits > 0 ? (totalPoints / (totalCredits * 10)) * 10 : 0;
     setResult(Number(finalResult.toFixed(2)));
+    // console.log("total:", totalPoints, totalCredits);
     // console.log("Marks:", marks);
   };
 
