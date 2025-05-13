@@ -130,8 +130,6 @@ export function SubjectMarksForm({ branch }: SubjectMarksFormProps) {
   const [result, setResult] = useState<number | null>(null);
 
   const handleCalculate = () => {
-    // Placeholder for calculation formula
-    // Will be implemented when formula is provided
     let totalPoints = 0;
     let totalCredits = 0;
 
