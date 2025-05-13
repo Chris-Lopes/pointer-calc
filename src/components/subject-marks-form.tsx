@@ -162,7 +162,7 @@ export function SubjectMarksForm({ branch }: SubjectMarksFormProps) {
             <Input
               type="number"
               id={subject.name}
-              placeholder="Enter Total Marks(ISEs + PR_ISEs + MSE + ESE)"
+              placeholder="Total (ISEs + PR_ISEs + MSE + ESE)"
               min={0}
               max={150}
               className="max-w-full"
