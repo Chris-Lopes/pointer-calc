@@ -150,44 +150,48 @@ export function SubjectMarksForm({ branch }: SubjectMarksFormProps) {
   return (
     <div className="space-y-6">
       <h3 className="font-semibold text-lg">Enter Your Marks</h3>
-      <div className="grid gap-6">
-        {subjects.map((subject, index) => (
-          <div key={subject.name} className="space-y-2">
-            <Label htmlFor={subject.name} className="flex items-center gap-2">
-              <span className="font-semibold text-sm text-muted-foreground">
-                {(index + 1).toString().padStart(2, "0")}.
-              </span>
-              <span>{subject.name}</span>
-            </Label>
-            <Input
-              type="number"
-              id={subject.name}
-              placeholder="Total (ISEs + PR_ISEs + MSE + ESE)"
-              min={0}
-              max={150}
-              className="max-w-full"
-              value={marks[subject.name] || ""}
-              onChange={(e) => {
-                const value = e.target.value;
-                if (value === "") {
-                  const newMarks = { ...marks };
-                  delete newMarks[subject.name];
-                  setMarks(newMarks);
-                } else {
-                  setMarks((prev) => ({
-                    ...prev,
-                    [subject.name]: Number(value),
-                  }));
-                }
-              }}
-            />
-          </div>
-        ))}
-      </div>
+      <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+        <div className="grid gap-6">
+          {subjects.map((subject, index) => (
+            <div key={subject.name} className="space-y-2">
+              <Label htmlFor={subject.name} className="flex items-center gap-2">
+                <span className="font-semibold text-sm text-muted-foreground">
+                  {(index + 1).toString().padStart(2, "0")}.
+                </span>
+                <span>{subject.name}</span>
+              </Label>
+              <Input
+                type="number"
+                id={subject.name}
+                placeholder="Total (ISEs + PR_ISEs + MSE + ESE)"
+                min={0}
+                max={150}
+                step={0.01}
+                required
+                className="max-w-full"
+                value={marks[subject.name] || ""}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value === "") {
+                    const newMarks = { ...marks };
+                    delete newMarks[subject.name];
+                    setMarks(newMarks);
+                  } else {
+                    setMarks((prev) => ({
+                      ...prev,
+                      [subject.name]: Number(value),
+                    }));
+                  }
+                }}
+              />
+            </div>
+          ))}
+        </div>
 
-      <Button onClick={handleCalculate} className="w-full">
-        Calculate Result
-      </Button>
+        <Button onClick={handleCalculate} className="w-full">
+          Calculate Result
+        </Button>
+      </form>
 
       {result !== null && (
         <div className="text-center">
