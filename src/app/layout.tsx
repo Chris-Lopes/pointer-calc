@@ -28,6 +28,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
       >
         {children}
+        {/* <div className="text-center py-4 border-t border-t-slate-200 dark:border-t-slate-700">
+          Thanks to Reniyas
+        </div> */}
       </body>
     </html>
   );
