@@ -9,22 +9,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SubjectMarksForm } from "@/components/subject-marks-form";
+import SeForm from "@/components/SE-subjects";
+import FeForm from "@/components/FE-subjects";
 import { useState } from "react";
 
 type Branch = "Computer" | "AIDS" | "ECS" | "Mechanical";
+type FeBranch = "Computer" | "CSE" | "ECS" | "Mechanical";
 
 export default function Home() {
   const [selectedYear, setSelectedYear] = useState<string>();
-  const [selectedBranch, setSelectedBranch] = useState<Branch>();
+  const [selectedBranch, setSelectedBranch] = useState<Branch | FeBranch>();
 
   const years = [
-    { id: "1", label: "First Year", disabled: true, note: "(coming soon)" },
+    { id: "1", label: "First Year" },
     { id: "2", label: "Second Year" },
     { id: "3", label: "Third Year", disabled: true, note: "(coming soon)" },
   ];
 
   const branches: Branch[] = ["Computer", "AIDS", "ECS", "Mechanical"];
+  const FE_branches: FeBranch[] = ["Computer", "CSE", "ECS", "Mechanical"];
 
   return (
     <main className="flex min-h-screen flex-col items-center p-8 gap-6">
@@ -59,6 +62,7 @@ export default function Home() {
           </Select>
         </div>
 
+        {/* second year */}
         {selectedYear === "2" && (
           <div className="space-y-2">
             <label className="text-sm font-medium">Select Branch</label>
@@ -83,7 +87,35 @@ export default function Home() {
         )}
 
         {selectedYear === "2" && selectedBranch && (
-          <SubjectMarksForm branch={selectedBranch} />
+          <SeForm branch={selectedBranch as Branch} />
+        )}
+
+        {/* first year */}
+        {selectedYear === "1" && (
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Select Branch</label>
+            <Select
+              value={selectedBranch}
+              onValueChange={(value) => setSelectedBranch(value as FeBranch)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Choose your branch" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {FE_branches.map((branch) => (
+                    <SelectItem key={branch} value={branch}>
+                      {branch}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
+        {selectedYear === "1" && selectedBranch && (
+          <FeForm branch={selectedBranch as FeBranch} />
         )}
       </Card>
     </main>
