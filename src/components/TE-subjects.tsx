@@ -117,13 +117,9 @@ type Branch = keyof typeof SUBJECTS;
 
 interface SubjectMarksFormProps {
   branch: Branch;
-  isHonour: boolean | null;
 }
 
-export default function SubjectMarksForm({
-  branch,
-  isHonour,
-}: SubjectMarksFormProps) {
+export default function SubjectMarksForm({ branch }: SubjectMarksFormProps) {
   const subjects = SUBJECTS[branch];
   const [marks, setMarks] = useState<Record<string, number>>({});
   const [result, setResult] = useState<number | null>(null);
@@ -132,13 +128,7 @@ export default function SubjectMarksForm({
     let totalPoints = 0;
     let totalCredits = 0;
 
-    // Create a list of all subjects including honour if applicable
-    const allSubjects = isHonour
-      ? [...subjects, { name: "honour", credits: 3, maxMarks: 100 }]
-      : subjects;
-
-    // Calculate points for all subjects
-    for (const subject of allSubjects) {
+    for (const subject of subjects) {
       const subjectMarks = marks[subject.name] || 0;
       const pointer = calculatePointer(subjectMarks, subject.maxMarks) || 0;
       totalPoints += pointer * subject.credits;
@@ -148,7 +138,7 @@ export default function SubjectMarksForm({
     const finalResult =
       totalCredits > 0 ? (totalPoints / (totalCredits * 10)) * 10 : 0;
     setResult(Number(finalResult.toFixed(2)));
-    console.log("total:", totalPoints, totalCredits);
+    // console.log("total:", totalPoints, totalCredits);
     // console.log("Marks:", marks);
   };
 
@@ -191,41 +181,6 @@ export default function SubjectMarksForm({
               />
             </div>
           ))}
-
-          {isHonour && (
-            <div className="space-y-2">
-              <Label htmlFor={"honour"} className="flex items-center gap-2">
-                <span className="font-semibold text-sm text-muted-foreground">
-                  {subjects.length + 1}.
-                </span>
-                <span>Honour / Minor</span>
-              </Label>
-              <Input
-                type="number"
-                id={"honour"}
-                placeholder="Total (ISEs + PR_ISEs + MSE + ESE)"
-                min={0}
-                max={150}
-                step={0.01}
-                required
-                className="max-w-full"
-                value={marks["honour"] || ""}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  if (value === "") {
-                    const newMarks = { ...marks };
-                    delete newMarks["honour"];
-                    setMarks(newMarks);
-                  } else {
-                    setMarks((prev) => ({
-                      ...prev,
-                      ["honour"]: Number(value),
-                    }));
-                  }
-                }}
-              />
-            </div>
-          )}
         </div>
 
         <Button onClick={handleCalculate} className="w-full">

@@ -20,7 +20,6 @@ type FeBranch = "Computer" | "CSE" | "ECS" | "Mechanical";
 export default function Home() {
   const [selectedYear, setSelectedYear] = useState<string>();
   const [selectedBranch, setSelectedBranch] = useState<Branch | FeBranch>();
-  const [isHonour, setHonour] = useState<boolean | null>(null);
 
   const years = [
     { id: "1", label: "First Year" },
@@ -128,7 +127,6 @@ export default function Home() {
               value={selectedBranch}
               onValueChange={(value) => {
                 setSelectedBranch(value as Branch);
-                setHonour(null); // Reset honour when branch changes
               }}
             >
               <SelectTrigger>
@@ -148,33 +146,7 @@ export default function Home() {
         )}
 
         {selectedYear === "3" && selectedBranch && (
-          <div className="space-y-2">
-            <label className="text-sm font-medium">
-              Honour or Minor Selected
-            </label>
-            <Select
-              value={
-                isHonour == null
-                  ? ""
-                  : isHonour.toString() /* Convert boolean to string */
-              }
-              onValueChange={(value) => setHonour(value === "true")}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Yes / No" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="true">Yes</SelectItem>
-                  <SelectItem value="false">No</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-        )}
-
-        {selectedYear === "3" && selectedBranch && isHonour !== null && (
-          <TeForm branch={selectedBranch as Branch} isHonour={isHonour} />
+          <TeForm branch={selectedBranch as Branch}  />
         )}
       </Card>
     </main>
