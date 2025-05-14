@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import SeForm from "@/components/SE-subjects";
 import FeForm from "@/components/FE-subjects";
+import TeForm from "@/components/TE-subjects";
 import { useState } from "react";
 
 type Branch = "Computer" | "AIDS" | "ECS" | "Mechanical";
@@ -19,13 +20,13 @@ type FeBranch = "Computer" | "CSE" | "ECS" | "Mechanical";
 export default function Home() {
   const [selectedYear, setSelectedYear] = useState<string>();
   const [selectedBranch, setSelectedBranch] = useState<Branch | FeBranch>();
+  const [isHonour, setHonour] = useState<boolean | null>(null);
 
   const years = [
     { id: "1", label: "First Year" },
     { id: "2", label: "Second Year" },
-    { id: "3", label: "Third Year", disabled: true, note: "(coming soon)" },
+    { id: "3", label: "Third Year", disabled: true, note: "(coming soon)" }, // {..., disabled: true, note: "(coming soon)"}
   ];
-
   const branches: Branch[] = ["Computer", "AIDS", "ECS", "Mechanical"];
   const FE_branches: FeBranch[] = ["Computer", "CSE", "ECS", "Mechanical"];
 
@@ -54,7 +55,8 @@ export default function Home() {
                     value={year.id}
                     disabled={year.disabled}
                   >
-                    {year.label} {year.note}
+                    {year.label}
+                    {year.note}
                   </SelectItem>
                 ))}
               </SelectGroup>
@@ -116,6 +118,63 @@ export default function Home() {
 
         {selectedYear === "1" && selectedBranch && (
           <FeForm branch={selectedBranch as FeBranch} />
+        )}
+
+        {/* third year */}
+        {selectedYear === "3" && (
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Select Branch</label>
+            <Select
+              value={selectedBranch}
+              onValueChange={(value) => {
+                setSelectedBranch(value as Branch);
+                setHonour(null); // Reset honour when branch changes
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Choose your branch" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {branches.map((branch) => (
+                    <SelectItem key={branch} value={branch}>
+                      {branch}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
+        {selectedYear === "3" && selectedBranch && (
+          <div className="space-y-2">
+            <label className="text-sm font-medium">
+              Honour or Minor Selected
+            </label>
+            <Select
+              value={
+                isHonour == null
+                  ? ""
+                  : isHonour.toString() /* Convert boolean to string */
+              }
+              onValueChange={(value) => setHonour(value === "true")}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Yes / No" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="true">Yes</SelectItem>
+                  <SelectItem value="false">No</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
+        {selectedYear === "3" && selectedBranch && isHonour !== null && (
+          <TeForm branch={selectedBranch as Branch} isHonour={isHonour} />
         )}
       </Card>
     </main>
