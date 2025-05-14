@@ -25,7 +25,7 @@ export default function Home() {
   const years = [
     { id: "1", label: "First Year" },
     { id: "2", label: "Second Year" },
-    { id: "3", label: "Third Year", disabled: true, note: "(coming soon)" }, // {..., disabled: true, note: "(coming soon)"}
+    { id: "3", label: "Third Year"}, // {..., disabled: true, note: "(coming soon)"}
   ];
   const branches: Branch[] = ["Computer", "AIDS", "ECS", "Mechanical"];
   const FE_branches: FeBranch[] = ["Computer", "CSE", "ECS", "Mechanical"];
@@ -53,10 +53,10 @@ export default function Home() {
                   <SelectItem
                     key={year.id}
                     value={year.id}
-                    disabled={year.disabled}
+                    // disabled={year.disabled}
                   >
                     {year.label}
-                    {year.note}
+                    {/* {year.note} */}
                   </SelectItem>
                 ))}
               </SelectGroup>
