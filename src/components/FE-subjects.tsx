@@ -30,27 +30,61 @@ const SUBJECTS = {
       name: "Integral Calculus and Probability Theory",
       credits: 3,
       maxMarks: 150,
+      placeholder: true,
     },
-    { name: "Engineering Physics", credits: 3, maxMarks: 150 },
-    { name: "Engineering Graphics", credits: 3, maxMarks: 150 },
-    { name: "Human Health Systems", credits: 1, maxMarks: 50 },
-    { name: "Digital Electronics", credits: 3, maxMarks: 150 },
+    {
+      name: "Engineering Physics",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
+    {
+      name: "Engineering Graphics",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
+    {
+      name: "Human Health Systems",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+    },
+    {
+      name: "Digital Electronics",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
     {
       name: "Essential Computing Skills for Engineers",
       credits: 2,
       maxMarks: 100,
+      placeholder: false,
     },
     {
       name: "Measuring Instruments and Testing Tools",
       credits: 2,
       maxMarks: 100,
+      placeholder: false,
     },
-    { name: "Art of Communication", credits: 2, maxMarks: 100 },
-    { name: "One Course from LCC", credits: 1, maxMarks: 50 },
+    {
+      name: "Art of Communication",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: false,
+    },
+    {
+      name: "One Course from LCC",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+    },
     {
       name: "Introduction to Emerging Technologies",
       credits: 2,
       maxMarks: 100,
+      placeholder: true,
     },
   ],
   CSE: [
@@ -58,23 +92,61 @@ const SUBJECTS = {
       name: "Integral Calculus and Probability Theory",
       credits: 3,
       maxMarks: 150,
+      placeholder: true,
     },
-    { name: "Engineering Chemistry", credits: 3, maxMarks: 150 },
-    { name: "Programming Fundamentals", credits: 3, maxMarks: 150 },
-    { name: "Human Health Systems", credits: 1, maxMarks: 50 },
-    { name: "Digital Electronics", credits: 3, maxMarks: 150 },
+    {
+      name: "Engineering Chemistry",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
+    {
+      name: "Programming Fundamentals",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
+    {
+      name: "Human Health Systems",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+    },
+    {
+      name: "Digital Electronics",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
     {
       name: "Essential Psychomotor Skills for Engineers",
       credits: 2,
       maxMarks: 100,
+      placeholder: false,
     },
-    { name: "Creative Coding in Python", credits: 2, maxMarks: 100 },
-    { name: "Indian Knowledge System", credits: 2, maxMarks: 100 },
-    { name: "One Course from LCC", credits: 1, maxMarks: 50 },
+    {
+      name: "Creative Coding in Python",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: false,
+    },
+    {
+      name: "Indian Knowledge System",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: false,
+    },
+    {
+      name: "One Course from LCC",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+    },
     {
       name: "Introduction to Emerging Technologies",
       credits: 2,
       maxMarks: 100,
+      placeholder: true,
     },
   ],
   ECS: [
@@ -82,23 +154,61 @@ const SUBJECTS = {
       name: "Integral Calculus and Probability Theory",
       credits: 3,
       maxMarks: 150,
+      placeholder: true,
     },
-    { name: "Engineering Chemistry", credits: 3, maxMarks: 150 },
-    { name: "Programming Fundamentals", credits: 3, maxMarks: 150 },
-    { name: "Human Health Systems", credits: 1, maxMarks: 50 },
-    { name: "Digital Electronics", credits: 3, maxMarks: 150 },
+    {
+      name: "Engineering Chemistry",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
+    {
+      name: "Programming Fundamentals",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
+    {
+      name: "Human Health Systems",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+    },
+    {
+      name: "Digital Electronics",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
     {
       name: "Essential Psychomotor Skills for Engineers",
       credits: 2,
       maxMarks: 100,
+      placeholder: false,
     },
-    { name: "Creative Coding in Python", credits: 2, maxMarks: 100 },
-    { name: "Indian Knowledge System", credits: 2, maxMarks: 100 },
-    { name: "One Course from LCC", credits: 1, maxMarks: 50 },
+    {
+      name: "Creative Coding in Python",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: false,
+    },
+    {
+      name: "Indian Knowledge System",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: false,
+    },
+    {
+      name: "One Course from LCC",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+    },
     {
       name: "Introduction to Emerging Technologies",
       credits: 2,
       maxMarks: 100,
+      placeholder: true,
     },
   ],
   Mechanical: [
@@ -106,23 +216,61 @@ const SUBJECTS = {
       name: "Integral Calculus and Probability Theory",
       credits: 3,
       maxMarks: 150,
+      placeholder: true,
     },
-    { name: "Engineering Chemistry", credits: 3, maxMarks: 150 },
-    { name: "Programming Fundamentals", credits: 3, maxMarks: 150 },
-    { name: "Human Health Systems", credits: 1, maxMarks: 50 },
-    { name: "Basic Manufacturing Processes", credits: 3, maxMarks: 150 },
+    {
+      name: "Engineering Chemistry",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
+    {
+      name: "Programming Fundamentals",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
+    {
+      name: "Human Health Systems",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+    },
+    {
+      name: "Basic Manufacturing Processes",
+      credits: 3,
+      maxMarks: 150,
+      placeholder: true,
+    },
     {
       name: "Essential Psychomotor Skills for Engineers",
       credits: 2,
       maxMarks: 100,
+      placeholder: false,
     },
-    { name: "Creative Coding in Python", credits: 2, maxMarks: 100 },
-    { name: "Indian Knowledge System", credits: 2, maxMarks: 100 },
-    { name: "One Course from LCC", credits: 1, maxMarks: 50 },
+    {
+      name: "Creative Coding in Python",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: false,
+    },
+    {
+      name: "Indian Knowledge System",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: false,
+    },
+    {
+      name: "One Course from LCC",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+    },
     {
       name: "Introduction to Emerging Technologies",
       credits: 2,
       maxMarks: 100,
+      placeholder: true,
     },
   ],
 };
@@ -172,7 +320,11 @@ export default function SubjectMarksForm({ branch }: SubjectMarksFormProps) {
               <Input
                 type="number"
                 id={subject.name}
-                placeholder="Total (ISEs + PR_ISEs + MSE + ESE)"
+                placeholder={
+                  subject.placeholder
+                    ? "Total (ISEs + PR_ISEs + MSE + ESE)"
+                    : "Total (ISE1 + ISE2)"
+                }
                 min={0}
                 max={150}
                 step={0.01}
