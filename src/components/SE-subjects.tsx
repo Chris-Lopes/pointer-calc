@@ -3,7 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import type { MappedMarks } from "@/types/contineo";
 
 function calculatePointer(marks: number, maxMarks: number) {
   const ten = maxMarks * 0.85;
@@ -514,6 +515,7 @@ type Branch = keyof typeof SUBJECTS_SEM3;
 interface SubjectMarksFormProps {
   branch: Branch;
   semester: "Sem3" | "Sem4";
+  fetchedMarks?: MappedMarks | null;
 }
 
 // Define ComponentMarks type for clarity and reuse
@@ -526,7 +528,7 @@ interface ComponentMarks {
   total?: number; // For total input mode
 }
 
-export default function SubjectMarksForm({ branch, semester }: SubjectMarksFormProps) {
+export default function SubjectMarksForm({ branch, semester, fetchedMarks }: SubjectMarksFormProps) {
   const subjects = semester === "Sem3" ? SUBJECTS_SEM3[branch] : SUBJECTS_SEM4[branch];
 
   if (!subjects || subjects.length === 0) {
@@ -537,6 +539,13 @@ export default function SubjectMarksForm({ branch, semester }: SubjectMarksFormP
   const [result, setResult] = useState<number | null>(null);
   const [currentSubjectIndex, setCurrentSubjectIndex] = useState(0);
   const [inputMode, setInputMode] = useState<'individual' | 'total'>('individual'); // 'individual' or 'total'
+
+  // Auto-populate marks when fetched from Contineo
+  useEffect(() => {
+    if (fetchedMarks) {
+      setComponentMarks(fetchedMarks);
+    }
+  }, [fetchedMarks]);
 
   // Updated calculateTotalMarks to use ComponentMarks type and sum practical_ise
   const calculateTotalMarks = (subject: any, components: ComponentMarks | undefined, inputMode: 'individual' | 'total') => {

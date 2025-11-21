@@ -12,8 +12,10 @@ import {
 import SeForm from "@/components/SE-subjects";
 import FeForm from "@/components/FE-subjects";
 import TeForm from "@/components/TE-subjects";
+import ContineoFetchButton from "@/components/ContineoFetchButton";
 import { Github } from "lucide-react";
 import { useState } from "react";
+import type { MappedMarks } from "@/types/contineo";
 
 type Branch = "Computer" | "AIDS" | "ECS" | "Mechanical";
 type FeBranch = "Computer" | "CSE" | "ECS" | "Mechanical";
@@ -22,6 +24,7 @@ export default function Home() {
   const [selectedYear, setSelectedYear] = useState<string>();
   const [selectedBranch, setSelectedBranch] = useState<Branch | FeBranch>();
   const [selectedSemester, setSelectedSemester] = useState<"Sem3" | "Sem4" | "Sem5" | "Sem6">();
+  const [fetchedMarks, setFetchedMarks] = useState<MappedMarks | null>(null);
 
   const years = [
     { id: "1", label: "First Year" },
@@ -110,7 +113,17 @@ export default function Home() {
           )}
 
           {selectedYear === "2" && selectedBranch && selectedSemester && (selectedSemester === "Sem3" || selectedSemester === "Sem4") && (
-            <SeForm branch={selectedBranch as Branch} semester={selectedSemester} />
+            <div className="space-y-4">
+              <ContineoFetchButton
+                semester={selectedSemester}
+                onMarksFetched={(marks) => setFetchedMarks(marks)}
+              />
+              <SeForm
+                branch={selectedBranch as Branch}
+                semester={selectedSemester}
+                fetchedMarks={fetchedMarks}
+              />
+            </div>
           )}
 
           {/* first year */}
@@ -189,7 +202,17 @@ export default function Home() {
           )}
 
           {selectedYear === "3" && selectedBranch && selectedSemester && (selectedSemester === "Sem5" || selectedSemester === "Sem6") && (
-            <TeForm branch={selectedBranch as Branch} semester={selectedSemester} />
+            <div className="space-y-4">
+              <ContineoFetchButton
+                semester={selectedSemester}
+                onMarksFetched={(marks) => setFetchedMarks(marks)}
+              />
+              <TeForm
+                branch={selectedBranch as Branch}
+                semester={selectedSemester}
+                fetchedMarks={fetchedMarks}
+              />
+            </div>
           )}
         </Card>
       </main>
