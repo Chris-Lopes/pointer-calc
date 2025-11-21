@@ -79,9 +79,7 @@ const SUBJECTS_SEM3: Record<string, Subject[]> = {
       placeholder: true,
       componentMaxMarks: {
         ise1: 50,
-        mse: 0,
-        ise2: 0,
-        ese: 50,
+        ise2: 50,
       },
     },
     {
@@ -103,9 +101,7 @@ const SUBJECTS_SEM3: Record<string, Subject[]> = {
       placeholder: true,
       componentMaxMarks: {
         ise1: 50,
-        mse: 0,
-        ise2: 0,
-        ese: 50,
+        ise2: 50,
       },
     },
     {
@@ -115,9 +111,7 @@ const SUBJECTS_SEM3: Record<string, Subject[]> = {
       placeholder: true,
       componentMaxMarks: {
         ise1: 50,
-        mse: 0,
-        ise2: 0,
-        ese: 50,
+        ise2: 50,
       },
     },
     {
@@ -127,9 +121,7 @@ const SUBJECTS_SEM3: Record<string, Subject[]> = {
       placeholder: true,
       componentMaxMarks: {
         ise1: 50,
-        mse: 0,
-        ise2: 0,
-        ese: 50,
+        ise2: 50,
       },
     },
 

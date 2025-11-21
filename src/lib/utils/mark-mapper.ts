@@ -8,12 +8,8 @@ import type {
 
 /**
  * Subject name mappings from API subject codes to calculator subject names
- * Based on the semester and subject code patterns
  */
-const SUBJECT_NAME_OVERRIDES: Record<string, string> = {
-    // Add specific overrides if API subject names don't match calculator exactly
-    // Example: "Data Structures": "Data Structures"
-};
+const SUBJECT_NAME_OVERRIDES: Record<string, string> = {};
 
 /**
  * Maps API mark types to calculator field names
@@ -52,47 +48,7 @@ function mapApiMarkToCalculatorField(
 }
 
 /**
- * Determines semester from subject code
- * CSC501, CSL501 -> Sem3 (SE)
- * CSC601, CSL601 -> Sem4 (SE)
- * CSC701, CSL701 -> Sem5 (TE)
- * CSC801, CSL801 -> Sem6 (TE)
- */
-function getSemesterFromSubjectCode(subjectCode: string): string | null {
-    const semesterMap: Record<string, string> = {
-        "5": "Sem3", // SE Semester 3
-        "6": "Sem4", // SE Semester 4  
-        "7": "Sem5", // TE Semester 5
-        "8": "Sem6", // TE Semester 6
-    };
-
-    // Extract semester digit (4th character in codes like CSC501)
-    const semesterDigit = subjectCode.charAt(3);
-    return semesterMap[semesterDigit] || null;
-}
-
-/**
- * Filters marks by semester
- */
-export function filterMarksBySemester(
-    cieMarks: CIEMarks,
-    semester: "Sem3" | "Sem4" | "Sem5" | "Sem6"
-): CIEMarks {
-    const filtered: CIEMarks = {};
-
-    for (const [subjectCode, marks] of Object.entries(cieMarks)) {
-        const subjectSemester = getSemesterFromSubjectCode(subjectCode);
-        if (subjectSemester === semester) {
-            filtered[subjectCode] = marks;
-        }
-    }
-
-    return filtered;
-}
-
-/**
  * Maps API CIE marks to calculator format
- * Subject codes are converted to subject names as keys
  */
 export function mapCIEMarksToCalculatorFormat(
     cieMarks: CIEMarks,
@@ -101,13 +57,8 @@ export function mapCIEMarksToCalculatorFormat(
     const mapped: MappedMarks = {};
 
     for (const [subjectCode, apiMarks] of Object.entries(cieMarks)) {
-        // Get subject name from mapping or use code as fallback
         let subjectName = subjectCodeToNameMap[subjectCode] || subjectCode;
-
-        // Apply overrides if any
         subjectName = SUBJECT_NAME_OVERRIDES[subjectName] || subjectName;
-
-        // Map marks to calculator format
         mapped[subjectName] = mapApiMarkToCalculatorField(apiMarks);
     }
 
@@ -115,58 +66,57 @@ export function mapCIEMarksToCalculatorFormat(
 }
 
 /**
- * Get subject code to name mapping from API config
- * This should match the config.SUBJECT_CODE_TO_NAME_MAP from your API
+ * Filters marks by semester (DISABLED - returns all marks)
+ */
+export function filterMarksBySemester(
+    cieMarks: CIEMarks,
+    semester: "Sem3" | "Sem4" | "Sem5" | "Sem6"
+): CIEMarks {
+    // For now, return all marks without filtering
+    return cieMarks;
+}
+
+/**
+ * Subject code to name mapping from Contineo API config
  */
 export const SUBJECT_CODE_TO_NAME_MAP: Record<string, string> = {
-    // Semester 3 (SE)
-    "CSC501": "Discrete Mathematics and Graph Theory",
-    "CSC502": "Computer Organization and Architecture",
-    "CSC503": "Data Structures",
-    "CSL501": "Object Oriented Programming with JAVA",
-    "CSC504": "Law for Engineers / Financial Planning",
-    "CSC505": "MDM Course-1",
-    "CSC506": "MDM Course-2",
-    "CSC507": "Modern Indian Languages",
-    "CSC508": "Human Values and Professional Ethics",
-    "CSC509": "Community Engagement Project",
+    // Semester 3 (SE) - 2025 batch codes
+    "25BSC12CE05": "Discrete Mathematics and Graph Theory",
+    "25PCC12CE05": "Computer Organization and Architecture",
+    "25PCC12CE06": "Data Structures",
+    "25PCC12CE07": "Object Oriented Programming with JAVA",
+    "25VEC12CE01": "Human Values and Professional Ethics",
+    "25AEC12CE021": "Modern Indian Languages",
+    "25MDMBM1": "MDM Course-1",
+    "25OE13CE12": "Financial Planning",
+    "25MDMBM2": "MDM Course-2",
+    "25DM41": "Double Minor Course",
 
-    // Semester 4 (SE) 
-    "CSC601": "Linear Algebra and Business Statistics",
-    "CSC602": "Database Management Systems",
-    "CSC603": "Analysis of Algorithm",
-    "CSC604": "Operating Systems",
-    "CSC605": "Emerging Technology and Law / Principles of Management",
-    "CSC606": "MDM Course-3",
-    "CSL602": "Full Stack Development",
-    "CSC607": "Technology Entrepreneurship",
-    "CSC608": "Technology Innovation for Sustainable Development",
-    "CSC609": "Double Minor Course",
+    // Semester 4 (SE) - 2025 batch
+    "25BSC12CE06": "Linear Algebra and Business Statistics",
+    "25PCC12CE08": "Database Management Systems",
+    "25PCC12CE09": "Analysis of Algorithm",
+    "25PCC12CE10": "Operating Systems",
 
-    // Semester 5 (TE)
-    "CSC701": "Cryptography and System Security",
-    "CSC702": "Theory of Computer Science",
-    "CSC703": "System Programming and Computer Construction",
-    "CSC704": "Data Warehousing and Mining",
-    "CSL701": "Cloud Computing Lab",
-    "CSC705": "Program Elective Course",
-    "CSL702": "Program Elective Lab",
-    "CSC706": "Human Values and Psychology / Emotional and Spiritual Intelligence",
-    "CSC707": "MDM Course-3",
-    "CSC708": "Double Minor Course",
+    // Semester 5 (TE) - 2025 batch
+    "25PCC13CE11": "Computer Network",
+    "25PCC13CE12": "Theory of Computer Science",
+    "25PCC13CE13": "Operating Systems",
+    "25PCC13CE14": "Data Warehousing and Mining",
+    "25PEC13CE16": "Human Machine Interface",
+    "25MDM42": "Emotional And Spiritual Intelligence",
+    "25PECL13CE14": "Innovative Product Development Lab Phase 1",
+    "25OE13CE43": "Supply Chain Management",
 
-    // Semester 6 (TE)
-    "CSC801": "Distributed Computing",
-    "CSC802": "Software Engineering",
-    "CSL801": "Artificial Intelligence Lab",
+    // Semester 6 (TE) - Older batch codes
+    "CSC601": "System Programming & Compiler Construction",
+    "CSC602": "Cryptography and System Security",
+    "CSC603": "Mobile Computing",
+    "CSC604": "Artificial Intelligence",
+    "CSL601": "SPCC Lab",
+    "CSL602": "CSS Lab",
+    "CSL603": "MC Lab",
+    "CSL604": "AI Lab",
+    "CSL605": "Skill-Based Lab",
     "CSM601": "Mini Project 2B",
-    "CSL802": "Mobile App Development",
-    "CSL803": "DevOps Tools",
-    "CSC803": "Advanced Microprocessors",
-    "CSC804": "Program Elective Course",
-    "CSL804": "Competitive Coding",
-    "CSL805": "Program Elective Lab",
-    "CSC805": "Public Relations and Corporate Communication",
-    "CSC806": "MDM Course-5",
-    "CSC807": "Double Minor Course",
 };

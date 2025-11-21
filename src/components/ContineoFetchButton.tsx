@@ -16,7 +16,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Download, AlertCircle, CheckCircle2 } from "lucide-react";
 import { fetchStudentData, ContineoAPIError } from "@/lib/api/contineo";
 import {
-    filterMarksBySemester,
     mapCIEMarksToCalculatorFormat,
     SUBJECT_CODE_TO_NAME_MAP,
 } from "@/lib/utils/mark-mapper";
@@ -50,12 +49,11 @@ export default function ContineoFetchButton({
         try {
             const data = await fetchStudentData(username.trim(), false);
             console.log("📥 Fetched data:", data);
+            console.log("🔑 Subject codes in API:", Object.keys(data.cie_marks));
 
-            const filteredMarks = filterMarksBySemester(data.cie_marks, semester);
-            console.log("🔍 Filtered marks for", semester, ":", filteredMarks);
-
-            const mappedMarks = mapCIEMarksToCalculatorFormat(filteredMarks, SUBJECT_CODE_TO_NAME_MAP);
-            console.log("📊 Mapped marks:", mappedMarks);
+            // TEMPORARILY SKIP FILTERING - Map ALL subjects
+            const mappedMarks = mapCIEMarksToCalculatorFormat(data.cie_marks, SUBJECT_CODE_TO_NAME_MAP);
+            console.log("📊 Mapped marks (ALL subjects):", mappedMarks);
             console.log("📝 Number of subjects mapped:", Object.keys(mappedMarks).length);
 
             onMarksFetched(mappedMarks);
@@ -88,11 +86,7 @@ export default function ContineoFetchButton({
                     <DialogHeader>
                         <DialogTitle>Fetch Marks from Contineo</DialogTitle>
                         <DialogDescription>
-                            Enter your Contineo username to automatically fetch your marks for{" "}
-                            {semester === "Sem3" && "Semester 3"}
-                            {semester === "Sem4" && "Semester 4"}
-                            {semester === "Sem5" && "Semester 5"}
-                            {semester === "Sem6" && "Semester 6"}
+                            Enter your Contineo username to automatically fetch your marks.
                         </DialogDescription>
                     </DialogHeader>
 
