@@ -24,64 +24,102 @@ function calculatePointer(marks: number, maxMarks: number) {
   return 0;
 }
 
-const SUBJECTS = {
+interface ComponentMaxMarks {
+  ise1?: number;
+  mse?: number;
+  ise2?: number;
+  ese?: number;
+}
+
+interface Subject {
+  name: string;
+  credits: number;
+  maxMarks: number;
+  placeholder: boolean;
+  excludeFromPointer?: boolean;
+  componentMaxMarks?: ComponentMaxMarks;
+}
+
+const SUBJECTS_SEM5: Record<string, Subject[]> = {
   Computer: [
     {
-      name: "System Programming & Compiler Construction",
-      credits: 3,
-      maxMarks: 100,
-      placeholder: true,
-    },
-    {
-      name: "Cryptography & System Security",
-      credits: 3,
-      maxMarks: 100,
-      placeholder: true,
-    },
-    { name: "Mobile Computing", credits: 3, maxMarks: 100, placeholder: true },
-    {
-      name: "Artificial Intelligence",
-      credits: 3,
-      maxMarks: 100,
-      placeholder: true,
-    },
-    {
-      name: "Department Level Optional Course-2",
-      credits: 3,
-      maxMarks: 100,
-      placeholder: true,
-    },
-    {
-      name: "System Programming & Compiler Construction Lab",
-      credits: 1,
-      maxMarks: 50,
-      placeholder: true,
-    },
-    {
-      name: "Cryptography & System Security Lab",
-      credits: 1,
-      maxMarks: 25,
-      placeholder: false,
-    },
-    {
-      name: "Mobile Computing Lab",
-      credits: 1,
-      maxMarks: 25,
-      placeholder: false,
-    },
-    {
-      name: "Artificial Intelligence Lab",
-      credits: 1,
-      maxMarks: 50,
-      placeholder: false,
-    },
-    {
-      name: "Skill-based Laboratory",
+      name: "Cryptography and System Security",
       credits: 2,
-      maxMarks: 75,
-      placeholder: false,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 20, mse: 30, ise2: 20, ese: 30 },
     },
-    { name: "Mini Project 2B", credits: 2, maxMarks: 50, placeholder: true },
+    {
+      name: "Theory of Computer Science",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 20, mse: 30, ise2: 20, ese: 30 },
+    },
+    {
+      name: "System Programming and Computer Construction",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 20, mse: 30, ise2: 20, ese: 30 },
+    },
+    {
+      name: "Data Warehousing and Mining",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 20, mse: 30, ise2: 20, ese: 30 },
+    },
+    {
+      name: "Cloud Computing Lab",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+      componentMaxMarks: { ise1: 50, mse: 0, ise2: 0, ese: 0 },
+    },
+    {
+      name: "Program Elective Course",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: true,
+      componentMaxMarks: { ise1: 20, mse: 0, ise2: 0, ese: 30 },
+    },
+    {
+      name: "Program Elective Lab",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+      componentMaxMarks: { ise1: 20, mse: 0, ise2: 0, ese: 30 },
+    },
+    {
+      name: "Human Values and Psychology / Emotional and Spiritual Intelligence",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 50, mse: 0, ise2: 0, ese: 50 },
+    },
+    {
+      name: "MDM Course-3",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 20, mse: 30, ise2: 20, ese: 30 },
+    },
+    {
+      name: "Double Minor Course",
+      credits: 2,
+      maxMarks: 50,
+      placeholder: true,
+      excludeFromPointer: true,
+      componentMaxMarks: { ise1: 20, mse: 0, ise2: 0, ese: 30 },
+    },
+    {
+      name: "Honours with Research",
+      credits: 4,
+      maxMarks: 0,
+      placeholder: false,
+      excludeFromPointer: true,
+    },
   ],
   AIDS: [
     {
@@ -277,10 +315,118 @@ const SUBJECTS = {
   ],
 };
 
-type Branch = keyof typeof SUBJECTS;
+const SUBJECTS_SEM6: Record<string, Subject[]> = {
+  Computer: [
+    {
+      name: "Distributed Computing",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 20, mse: 30, ise2: 20, ese: 30 },
+    },
+    {
+      name: "Software Engineering",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 20, mse: 30, ise2: 20, ese: 30 },
+    },
+    {
+      name: "Artificial Intelligence Lab",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+      componentMaxMarks: { ise1: 20, mse: 0, ise2: 0, ese: 30 },
+    },
+    {
+      name: "Mini Project 2B",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+      componentMaxMarks: { ise1: 20, mse: 0, ise2: 0, ese: 30 },
+    },
+    {
+      name: "Mobile App Development",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+      componentMaxMarks: { ise1: 20, mse: 0, ise2: 0, ese: 30 },
+    },
+    {
+      name: "DevOps Tools",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+      componentMaxMarks: { ise1: 20, mse: 0, ise2: 0, ese: 30 },
+    },
+    {
+      name: "Advanced Microprocessors",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 20, mse: 30, ise2: 20, ese: 30 },
+    },
+    {
+      name: "Program Elective Course",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 20, mse: 30, ise2: 20, ese: 30 },
+    },
+    {
+      name: "Competitive Coding",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+      componentMaxMarks: { ise1: 20, mse: 0, ise2: 0, ese: 30 },
+    },
+    {
+      name: "Program Elective Lab",
+      credits: 1,
+      maxMarks: 50,
+      placeholder: false,
+      componentMaxMarks: { ise1: 20, mse: 0, ise2: 0, ese: 30 },
+    },
+    {
+      name: "Public Relations and Corporate Communication",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 50, mse: 0, ise2: 0, ese: 50 },
+    },
+    {
+      name: "MDM Course-5",
+      credits: 2,
+      maxMarks: 100,
+      placeholder: true,
+      componentMaxMarks: { ise1: 50, mse: 0, ise2: 50, ese: 0 },
+    },
+    {
+      name: "Double Minor Course",
+      credits: 2,
+      maxMarks: 50,
+      placeholder: true,
+      excludeFromPointer: true,
+      componentMaxMarks: { ise1: 20, mse: 0, ise2: 0, ese: 30 },
+    },
+    {
+      name: "Honours with Research",
+      credits: 4,
+      maxMarks: 0,
+      placeholder: false,
+      excludeFromPointer: true,
+    },
+  ],
+  AIDS: [],
+  ECS: [],
+  Mechanical: [],
+};
+
+type Branch = keyof typeof SUBJECTS_SEM5;
 
 interface SubjectMarksFormProps {
   branch: Branch;
+  semester: "Sem5" | "Sem6";
 }
 
 // Define ComponentMarks type for clarity and reuse
@@ -290,10 +436,15 @@ interface ComponentMarks {
   ise2?: number;
   ese?: number;
   practical_ise?: number; // Updated field for single practical input
+  total?: number; // For total input mode
 }
 
-export default function SubjectMarksForm({ branch }: SubjectMarksFormProps) {
-  const subjects = SUBJECTS[branch];
+export default function SubjectMarksForm({ branch, semester }: SubjectMarksFormProps) {
+  const subjects = semester === "Sem5" ? SUBJECTS_SEM5[branch] : SUBJECTS_SEM6[branch];
+
+  if (!subjects || subjects.length === 0) {
+    return <div className="text-center p-4">Subjects for {branch} {semester} are not yet available.</div>;
+  }
   // Updated state to use ComponentMarks type and single practical_ise field
   const [componentMarks, setComponentMarks] = useState<Record<string, ComponentMarks>>({});
   const [result, setResult] = useState<number | null>(null);
@@ -307,14 +458,14 @@ export default function SubjectMarksForm({ branch }: SubjectMarksFormProps) {
     if (inputMode === 'total' && components.total !== undefined) {
       return components.total;
     }
-    
+
     let total = 0;
     if (components.ise1) total += components.ise1;
     if (components.mse) total += components.mse;
     if (components.ise2) total += components.ise2;
     if (components.ese) total += components.ese;
     if (components.practical_ise) total += components.practical_ise; // Sums the single practical_ise
-    
+
     return total;
   };
 
@@ -323,6 +474,11 @@ export default function SubjectMarksForm({ branch }: SubjectMarksFormProps) {
     let totalCredits = 0;
 
     for (const subject of subjects) {
+      // Skip subjects that should not be included in pointer calculation
+      if (subject.excludeFromPointer) {
+        continue;
+      }
+
       const components = componentMarks[subject.name] || {};
       const subjectMarks = calculateTotalMarks(subject, components, inputMode);
       const pointer = calculatePointer(subjectMarks, subject.maxMarks) || 0;
@@ -483,14 +639,14 @@ export default function SubjectMarksForm({ branch }: SubjectMarksFormProps) {
                             id={`${subject.name}-practical-ise`}
                             placeholder={!
                               subject.placeholder
-                                ? `Practical ISE (${subject.maxMarks} marks)`
-                                : "Practical ISE (50 marks)"
+                              ? `Practical ISE (${subject.maxMarks} marks)`
+                              : "Practical ISE (50 marks)"
                             }
                             min={0}
                             max={!
                               subject.placeholder
-                                ? subject.maxMarks
-                                : 50 // For theory+practical (150 total)
+                              ? subject.maxMarks
+                              : 50 // For theory+practical (150 total)
                             }
                             step={0.01}
                             className={`max-w-full ${!subject.placeholder ? 'md:col-span-2' : ''}`}

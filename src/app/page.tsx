@@ -21,11 +21,12 @@ type FeBranch = "Computer" | "CSE" | "ECS" | "Mechanical";
 export default function Home() {
   const [selectedYear, setSelectedYear] = useState<string>();
   const [selectedBranch, setSelectedBranch] = useState<Branch | FeBranch>();
+  const [selectedSemester, setSelectedSemester] = useState<"Sem3" | "Sem4" | "Sem5" | "Sem6">();
 
   const years = [
     { id: "1", label: "First Year" },
     { id: "2", label: "Second Year" },
-    { id: "3", label: "Third Year" }, // {..., disabled: true, note: "(coming soon)"}
+    { id: "3", label: "Third Year" },
   ];
   const branches: Branch[] = ["Computer", "AIDS", "ECS", "Mechanical"];
   const FE_branches: FeBranch[] = ["Computer", "CSE", "ECS", "Mechanical"];
@@ -42,7 +43,8 @@ export default function Home() {
               value={selectedYear}
               onValueChange={(value) => {
                 setSelectedYear(value);
-                setSelectedBranch(undefined); // Reset branch when year changes
+                setSelectedBranch(undefined);
+                setSelectedSemester(undefined);
               }}
             >
               <SelectTrigger>
@@ -51,13 +53,8 @@ export default function Home() {
               <SelectContent>
                 <SelectGroup>
                   {years.map((year) => (
-                    <SelectItem
-                      key={year.id}
-                      value={year.id}
-                      // disabled={year.disabled}
-                    >
+                    <SelectItem key={year.id} value={year.id}>
                       {year.label}
-                      {/* {year.note} */}
                     </SelectItem>
                   ))}
                 </SelectGroup>
@@ -71,7 +68,10 @@ export default function Home() {
               <label className="text-sm font-medium">Select Branch</label>
               <Select
                 value={selectedBranch}
-                onValueChange={(value) => setSelectedBranch(value as Branch)}
+                onValueChange={(value) => {
+                  setSelectedBranch(value as Branch);
+                  setSelectedSemester(undefined);
+                }}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Choose your branch" />
@@ -90,7 +90,27 @@ export default function Home() {
           )}
 
           {selectedYear === "2" && selectedBranch && (
-            <SeForm branch={selectedBranch as Branch} />
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Select Semester</label>
+              <Select
+                value={selectedSemester}
+                onValueChange={(value) => setSelectedSemester(value as "Sem3" | "Sem4" | "Sem5" | "Sem6")}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Choose your semester" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="Sem3">Semester 3</SelectItem>
+                    <SelectItem value="Sem4">Semester 4</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+
+          {selectedYear === "2" && selectedBranch && selectedSemester && (selectedSemester === "Sem3" || selectedSemester === "Sem4") && (
+            <SeForm branch={selectedBranch as Branch} semester={selectedSemester} />
           )}
 
           {/* first year */}
@@ -129,6 +149,7 @@ export default function Home() {
                 value={selectedBranch}
                 onValueChange={(value) => {
                   setSelectedBranch(value as Branch);
+                  setSelectedSemester(undefined);
                 }}
               >
                 <SelectTrigger>
@@ -148,7 +169,27 @@ export default function Home() {
           )}
 
           {selectedYear === "3" && selectedBranch && (
-            <TeForm branch={selectedBranch as Branch} />
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Select Semester</label>
+              <Select
+                value={selectedSemester}
+                onValueChange={(value) => setSelectedSemester(value as "Sem3" | "Sem4" | "Sem5" | "Sem6")}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Choose your semester" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="Sem5">Semester 5</SelectItem>
+                    <SelectItem value="Sem6">Semester 6</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+
+          {selectedYear === "3" && selectedBranch && selectedSemester && (selectedSemester === "Sem5" || selectedSemester === "Sem6") && (
+            <TeForm branch={selectedBranch as Branch} semester={selectedSemester} />
           )}
         </Card>
       </main>
