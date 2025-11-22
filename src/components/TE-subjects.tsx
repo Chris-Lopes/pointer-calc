@@ -314,6 +314,8 @@ const SUBJECTS_SEM5: Record<string, Subject[]> = {
       placeholder: true,
     },
   ],
+  IT: [],
+  EXTC: [],
 };
 
 const SUBJECTS_SEM6: Record<string, Subject[]> = {
@@ -418,9 +420,8 @@ const SUBJECTS_SEM6: Record<string, Subject[]> = {
       excludeFromPointer: true,
     },
   ],
-  AIDS: [],
-  ECS: [],
-  Mechanical: [],
+  IT: [],
+  EXTC: [],
 };
 
 type Branch = keyof typeof SUBJECTS_SEM5;
