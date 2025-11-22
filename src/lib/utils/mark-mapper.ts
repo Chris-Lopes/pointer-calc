@@ -59,6 +59,7 @@ export function mapSubjectCodeToName(subjectCode: string): string {
     // Handle Modern Indian Languages (all variations)
     if (subjectCode.includes('AEC') ||
         subjectCode.includes('KANNADA') ||
+        subjectCode.includes('KAN') ||
         subjectCode.includes('HINDI') ||
         subjectCode.includes('MARATHI') ||
         subjectCode.includes('SANSKRIT') ||
@@ -129,6 +130,7 @@ export const SUBJECT_CODE_TO_NAME_MAP: Record<string, string> = {
     "25PCC12CE06": "Data Structures",
     "25PCC12CE07": "Object Oriented Programming with JAVA",
     "25VEC12CE01": "Human Values and Professional Ethics",
+    "25AEC12CE023": "Modern Indian Languages", // Kannada
 
     // Semester 4 (SE)
     "25BSC12CE06": "Linear Algebra and Business Statistics",
