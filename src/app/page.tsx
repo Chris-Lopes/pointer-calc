@@ -16,11 +16,11 @@ import { Github } from "lucide-react";
 import { useState } from "react";
 
 type Branch = "Computer" | "AIDS" | "ECS" | "Mechanical";
-type FeBranch = "Computer" | "CSE" | "ECS" | "Mechanical";
+type FeSeBranch = "Computer" | "CSE" | "ECS" | "Mechanical";
 
 export default function Home() {
   const [selectedYear, setSelectedYear] = useState<string>();
-  const [selectedBranch, setSelectedBranch] = useState<Branch | FeBranch>();
+  const [selectedBranch, setSelectedBranch] = useState<Branch | FeSeBranch>();
 
   const years = [
     { id: "1", label: "First Year" },
@@ -28,7 +28,8 @@ export default function Home() {
     { id: "3", label: "Third Year" }, // {..., disabled: true, note: "(coming soon)"}
   ];
   const branches: Branch[] = ["Computer", "AIDS", "ECS", "Mechanical"];
-  const FE_branches: FeBranch[] = ["Computer", "CSE", "ECS", "Mechanical"];
+  const FE_branches: FeSeBranch[] = ["Computer", "CSE", "ECS", "Mechanical"];
+  const SE_branches: FeSeBranch[] = ["Computer", "CSE", "ECS", "Mechanical"];
 
   return (
     <div className="flex flex-col min-h-screen justify-between">
@@ -71,14 +72,14 @@ export default function Home() {
               <label className="text-sm font-medium">Select Branch</label>
               <Select
                 value={selectedBranch}
-                onValueChange={(value) => setSelectedBranch(value as Branch)}
+                onValueChange={(value) => setSelectedBranch(value as FeSeBranch)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Choose your branch" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {branches.map((branch) => (
+                    {SE_branches.map((branch) => (
                       <SelectItem key={branch} value={branch}>
                         {branch}
                       </SelectItem>
@@ -90,7 +91,7 @@ export default function Home() {
           )}
 
           {selectedYear === "2" && selectedBranch && (
-            <SeForm branch={selectedBranch as Branch} />
+            <SeForm branch={selectedBranch as FeSeBranch} />
           )}
 
           {/* first year */}
@@ -99,7 +100,7 @@ export default function Home() {
               <label className="text-sm font-medium">Select Branch</label>
               <Select
                 value={selectedBranch}
-                onValueChange={(value) => setSelectedBranch(value as FeBranch)}
+                onValueChange={(value) => setSelectedBranch(value as FeSeBranch)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Choose your branch" />
@@ -118,7 +119,7 @@ export default function Home() {
           )}
 
           {selectedYear === "1" && selectedBranch && (
-            <FeForm branch={selectedBranch as FeBranch} />
+            <FeForm branch={selectedBranch as FeSeBranch} />
           )}
 
           {/* third year */}
