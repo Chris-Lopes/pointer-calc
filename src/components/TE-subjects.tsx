@@ -287,7 +287,7 @@ function matchesCourseCode(subjectCode: string, cieCode: string): boolean {
   if (subjectCode.startsWith("25OE")) {
     return cieCode.startsWith("25OE");
   }
-  
+
   // Check if subject code has X (other electives)
   if (subjectCode.includes("X")) {
     // Compare up to the second last character
@@ -295,7 +295,7 @@ function matchesCourseCode(subjectCode: string, cieCode: string): boolean {
     const ciePrefix = cieCode.slice(0, -1);
     return subjectPrefix === ciePrefix;
   }
-  
+
   return subjectCode === cieCode;
 }
 
