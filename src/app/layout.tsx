@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Calculate Your Pointer",
-  description: "Calculate your pointer before college",
+  description: "Calculate your pointer before college, just enter your PRN and DOB and get your pointer instantly.",
 };
 
 export default function RootLayout({
